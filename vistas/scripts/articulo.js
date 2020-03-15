@@ -10,22 +10,26 @@ function init(){
 		guardaryeditar(e);	
 	})
 
-//Cargamos los items al select categoria
-$.post("../ajax/articulo.php?op=selectCategoria", function(r){
-	$("#idcategoria").html(r);
-	$('#idcategoria').selectpicker('refresh');
+	//Cargamos los items al select categoria
+	$.post("../ajax/articulo.php?op=selectCategoria", function(r){
+	            $("#idcategoria").html(r);
+	            $('#idcategoria').selectpicker('refresh');
 
-});
-
+	});
+	$("#imagenmuestra").hide();
 }
 
 //Función limpiar
 function limpiar()
 {
-    $("#codigo").val("");
+	$("#codigo").val("");
 	$("#nombre").val("");
 	$("#descripcion").val("");
 	$("#stock").val("");
+	$("#imagenmuestra").attr("src","");
+	$("#imagenactual").val("");
+	$("#print").hide();
+	$("#idarticulo").val("");
 }
 
 //Función mostrar formulario
@@ -115,12 +119,17 @@ function mostrar(idarticulo)
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-        $("#idcategoria").val(data.idcategoria);
-        $("#codigo").val(data.codigo);
-        $("#nombre").val(data.nombre);
-        $("#stock").val(data.stock);
+		$("#idcategoria").val(data.idcategoria);
+		$('#idcategoria').selectpicker('refresh');
+		$("#codigo").val(data.codigo);
+		$("#nombre").val(data.nombre);
+		$("#stock").val(data.stock);
 		$("#descripcion").val(data.descripcion);
+		$("#imagenmuestra").show();
+		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+		$("#imagenactual").val(data.imagen);
  		$("#idarticulo").val(data.idarticulo);
+ 		generarbarcode();
 
  	})
 }
@@ -142,7 +151,7 @@ function desactivar(idarticulo)
 //Función para activar registros
 function activar(idarticulo)
 {
-	bootbox.confirm("¿Está Seguro de activar la el articulo?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
 		if(result)
         {
         	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
@@ -153,5 +162,18 @@ function activar(idarticulo)
 	})
 }
 
+//función para generar el código de barras
+function generarbarcode()
+{
+	codigo=$("#codigo").val();
+	JsBarcode("#barcode", codigo);
+	$("#print").show();
+}
+
+//Función para imprimir el Código de barras
+function imprimir()
+{
+	$("#print").printArea();
+}
 
 init();
