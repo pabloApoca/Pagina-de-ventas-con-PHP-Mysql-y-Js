@@ -19,8 +19,14 @@
  
   <script src="../public/datatables/jszip.min.js"></script>
   <script src="../public/datatables/pdfmake.min.js"></script>
+  <script src="../public/datatables/pdfmake.min.js.map"></script>
+
   <script src="../public/datatables/vfs_fonts.js"></script>
   <script src="../public/js/bootbox.min.js"></script>
   <script src="../public/js/bootstrap-select.min.js"></script>
+  <script src="../public/js/bootstrap-select.js.map"></script>
+  <script src="../public/js/jquery.PrintArea.js"></script>
+
+  
   </body>
 </html>
