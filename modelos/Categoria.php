@@ -59,3 +59,5 @@ Class Categoria
 		return ejecutarConsulta($sql);		
 	}
 }
+
+?>

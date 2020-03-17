@@ -1,20 +1,20 @@
 <?php 
 require_once "global.php";
 
-$conexion= new mysqli(BD_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);
+$conexion = new mysqli(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);
 
-mysqli_query( $conexion, 'SET NAMES"' . DB_ENCODE.'"');
+mysqli_query( $conexion, 'SET NAMES "'.DB_ENCODE.'"');
 
-//Si tenemos un posible error en la conexion lo mostramos
-if(mysqli_connect_errno())
+//Si tenemos un posible error en la conexión lo mostramos
+if (mysqli_connect_errno())
 {
-    printf("Falló conexión a la base de datos: %s\n",mysqli_connect_error());
-    exit();
+	printf("Falló conexión a la base de datos: %s\n",mysqli_connect_error());
+	exit();
 }
 
-if (!function_exists('ejectarConsulta')){
-
-    function ejecutarConsulta($sql)
+if (!function_exists('ejecutarConsulta'))
+{
+	function ejecutarConsulta($sql)
 	{
 		global $conexion;
 		$query = $conexion->query($sql);
@@ -29,8 +29,7 @@ if (!function_exists('ejectarConsulta')){
 		return $row;
 	}
 
-
-    function ejecutarConsulta_retornarID($sql)
+	function ejecutarConsulta_retornarID($sql)
 	{
 		global $conexion;
 		$query = $conexion->query($sql);		
@@ -43,11 +42,5 @@ if (!function_exists('ejectarConsulta')){
 		$str = mysqli_real_escape_string($conexion,trim($str));
 		return htmlspecialchars($str);
 	}
-
-
-
-
-
 }
-
 ?>
