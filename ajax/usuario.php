@@ -1,5 +1,7 @@
 <?php 
 require_once "../modelos/Usuario.php";
+require_once "../modelos/Permiso.php";
+
 
 $usuario=new Usuario();
 
@@ -30,18 +32,21 @@ switch ($_GET["op"]){
 				$imagen = round(microtime(true)) . '.' . end($ext);
 				move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
 			}
-        }
-        
-        //Hash SHA256 en la contraseña
-        $clavehash=hash("SHA256",$clave);
-
+		}
+		//Hash SHA256 en la contraseña
+		$clavehash=hash("SHA256",$clave);
 
 		if (empty($idusuario)){
-			$rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen);
-			echo $rspta ? "Usuario registrado" : "Usuario no se pudo registrar";
+			$rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
-			$rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen);
+			$rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+		/*	if($_POST['permiso']==0)
+			{
+				echo "Se han revocado todos los permisos : ";
+				
+			}*/
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
 	break;
@@ -94,6 +99,32 @@ switch ($_GET["op"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 
+	break;
+
+	case 'permisos':
+		//Obtenemos todos los permisos de la tabla permisos
+		require_once "../modelos/Permiso.php";
+		$permiso = new Permiso();
+		$rspta = $permiso->listar();
+
+		//Obtener los permisos asignados al usuario
+		$id=$_GET['id'];
+		$marcados = $usuario->listarmarcados($id);
+		//Declaramos el array para almacenar todos los permisos marcados
+		$valores=array();
+
+		//Almacenar los permisos asignados al usuario en el array
+		while ($per = $marcados->fetch_object())
+			{
+				array_push($valores, $per->idpermiso);
+			}
+
+		//Mostramos la lista de permisos en la vista y si están o no marcados
+		while ($reg = $rspta->fetch_object())
+				{
+					$sw=in_array($reg->idpermiso,$valores)?'checked':'';
+					echo '<li> <input type="checkbox" '.$sw.'  name="permiso[]" value="'.$reg->idpermiso.'">'.$reg->nombre.'</li>';
+				}
 	break;
 
 	

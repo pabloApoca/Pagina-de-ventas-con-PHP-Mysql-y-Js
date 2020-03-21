@@ -11,6 +11,13 @@ function init(){
 	})
 
 	$("#imagenmuestra").hide();
+
+	//Mostramos los permisos
+	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
+		$("#permisos").html(r);
+	  });
+	  
+
 }
 
 //Función limpiar
@@ -132,7 +139,10 @@ function mostrar(idusuario)
 		$("#imagenactual").val(data.imagen);
 		$("#idusuario").val(data.idusuario);
 
- 	})
+	 });
+	 $.post("../ajax/usuario.php?op=permisos&id="+idusuario,function(r){
+		$("#permisos").html(r);
+});
 }
 
 //Función para desactivar registros

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2020 a las 16:59:43
+-- Tiempo de generación: 20-03-2020 a las 00:01:52
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.10
 
@@ -134,6 +134,19 @@ CREATE TABLE `permiso` (
   `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `permiso`
+--
+
+INSERT INTO `permiso` (`idpermiso`, `nombre`) VALUES
+(1, 'Escritorio'),
+(2, 'Almacen'),
+(3, 'Compras'),
+(4, 'Ventas'),
+(5, 'Acceso'),
+(6, 'Consulta Compras'),
+(7, 'Consulta Ventas');
+
 -- --------------------------------------------------------
 
 --
@@ -150,6 +163,15 @@ CREATE TABLE `persona` (
   `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`) VALUES
+(1, 'Proveedor', 'Inversiones', 'CEDULA', '20554594', 'Calle nalgotas', '48559883', 'inversatan@gmail.com'),
+(2, 'Proveedor', 'Inversiones San Solanio', 'RUC', '2041885697401', 'Jose Pasco 841 - Solano', '41558967', 'leonsknnedy@hotmail.com'),
+(5, 'Proveedor', 'El Ferratazo', 'DNI', '18456988', '844 -San Francisco Solano', '42855631', 'elferratazoper@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -168,8 +190,18 @@ CREATE TABLE `usuario` (
   `cargo` varchar(20) DEFAULT NULL,
   `login` varchar(20) NOT NULL,
   `clave` varchar(64) NOT NULL,
+  `imagen` varchar(50) NOT NULL,
   `condicion` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`) VALUES
+(1, 'Pablo Lopez', 'DNI', '382544745', 'Pasaje 3', '42881263', 'pablomartim@hotmail.com', '', 'admin', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '1584637434.png', 1),
+(2, 'Juan garai', 'RUC', '18456988', '844 -San Francisco Solano', '41558967', 'gararaiop@gmail.com', 'Vendedor', 'vendedor', '99587eb4e95ff315934ac7ed4ca3175e0ea9a4f4f3126090f9d0e26c69114db9', '1584637391.png', 1),
+(3, 'Marianos wes', 'DNI', '31586699', 'Jose Pasco 841 - Solano', '48559883', 'marisnoasd@yahoo.com.ar', 'Cliente', 'clicli', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1584637682.png', 1);
 
 -- --------------------------------------------------------
 
@@ -317,19 +349,19 @@ ALTER TABLE `ingreso`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `idpermiso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_permiso`
