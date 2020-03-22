@@ -91,6 +91,13 @@ public function listarmarcados($idusuario)
 	return ejecutarConsulta($sql);
 }
 
+//Función para verificar el acceso al sistema
+public function verificar($login,$clave)
+{
+	$sql="SELECT idusuario,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login FROM usuario WHERE login='$login' AND clave='$clave' AND condicion='1'"; 
+	return ejecutarConsulta($sql);  
+}
+
 }
 
 ?>
