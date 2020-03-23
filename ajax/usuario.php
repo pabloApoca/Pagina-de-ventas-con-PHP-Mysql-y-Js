@@ -1,6 +1,6 @@
 <?php 
+session_start();
 require_once "../modelos/Usuario.php";
-require_once "../modelos/Permiso.php";
 
 
 $usuario=new Usuario();

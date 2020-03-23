@@ -1,4 +1,14 @@
 <?php
+//Activamos el almacenamiento en el bufer
+ob_start();
+session_start();
+
+if (!isset($_SESSION["nombre"]))
+{
+  header("Location: login.html");
+}
+else
+{
 require 'header.php';
 ?>
 <!--Contenido-->
@@ -64,3 +74,7 @@ require 'header.php';
 require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/categoria.js"></script>
+<?php
+}
+ob_end_flush();
+?>
