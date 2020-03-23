@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-03-2020 a las 00:01:52
+-- Tiempo de generación: 23-03-2020 a las 20:36:22
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.10
 
@@ -199,9 +199,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`) VALUES
-(1, 'Pablo Lopez', 'DNI', '382544745', 'Pasaje 3', '42881263', 'pablomartim@hotmail.com', '', 'admin', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '1584637434.png', 1),
-(2, 'Juan garai', 'RUC', '18456988', '844 -San Francisco Solano', '41558967', 'gararaiop@gmail.com', 'Vendedor', 'vendedor', '99587eb4e95ff315934ac7ed4ca3175e0ea9a4f4f3126090f9d0e26c69114db9', '1584637391.png', 1),
-(3, 'Marianos wes', 'DNI', '31586699', 'Jose Pasco 841 - Solano', '48559883', 'marisnoasd@yahoo.com.ar', 'Cliente', 'clicli', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1584637682.png', 1);
+(1, 'Pablo Lopez', 'DNI', '382544745', 'Pasaje 3', '42881263', 'pablomartim@hotmail.com', '', 'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637434.png', 1),
+(2, 'Juan garai chu', 'RUC', '18456988', '844 -San Francisco Solano', '41558967', 'gararaiopaa@gmail.com', 'Vendedor', 'vendedor', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637391.png', 1),
+(3, 'Marianos wes', 'DNI', '31586699', 'Jose Pasco 841 - Solano', '48559883', 'marisnoasd@yahoo.com.ar', 'Cliente', 'cli', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637682.png', 1),
+(4, 'Luis Perez', 'DNI', '28544777', 'Calle falsa 123', '42887411', 'falsedasd@gmail.com', 'Escritos', 'Escr', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584817701.jpg', 1),
+(5, 'Maria Argentina', 'DNI', '22558741', 'Gorriti 123', '42551123', 'mariaohohoargen@gmail.com', 'Emple', 'Emple', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584818051.jpg', 1),
+(6, 'Sergio Daniel Lopez', 'DNI', '38244563', 'Pasaje 4 5699', '42886510', 'Sergiorepiolaxd@gmail.com', 'Compras', 'ser', '1be00341082e25c4e251ca6713e767f7131a2823b0052caf9c9b006ec512f6cb', '1584991869.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -214,6 +217,32 @@ CREATE TABLE `usuario_permiso` (
   `idusuario` int(11) NOT NULL,
   `idpermiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario_permiso`
+--
+
+INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VALUES
+(44, 4, 1),
+(60, 1, 1),
+(61, 1, 2),
+(62, 1, 3),
+(63, 1, 4),
+(64, 1, 5),
+(65, 1, 6),
+(66, 1, 7),
+(71, 2, 4),
+(77, 3, 3),
+(78, 3, 4),
+(79, 3, 6),
+(80, 3, 7),
+(81, 5, 1),
+(82, 5, 2),
+(83, 5, 3),
+(84, 5, 4),
+(85, 6, 2),
+(86, 6, 3),
+(87, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -361,13 +390,13 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_permiso`
 --
 ALTER TABLE `usuario_permiso`
-  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusuario_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
