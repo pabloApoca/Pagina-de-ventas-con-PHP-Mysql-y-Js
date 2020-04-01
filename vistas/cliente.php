@@ -1,5 +1,5 @@
 <?php
-//Activamos el almacenamiento en el bufer
+//Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
 
@@ -22,8 +22,7 @@ if ($_SESSION['ventas']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Cliente <button class="btn btn-success" id="btnagregar"  
-                          onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Cliente <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -35,8 +34,8 @@ if ($_SESSION['ventas']==1)
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Documento</th>
-                            <th>Numero</th>
-                            <th>Telefono</th>
+                            <th>Número</th>
+                            <th>Teléfono</th>
                             <th>Email</th>
                           </thead>
                           <tbody>                            
@@ -45,49 +44,43 @@ if ($_SESSION['ventas']==1)
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Documento</th>
-                            <th>Numero</th>
-                            <th>Telefono</th>
+                            <th>Número</th>
+                            <th>Teléfono</th>
                             <th>Email</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                        
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
                             <input type="hidden" name="idpersona" id="idpersona">
                             <input type="hidden" name="tipo_persona" id="tipo_persona" value="Cliente">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre del Cliente" required>
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre del proveedor" required>
                           </div>
-                         
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Tipo Documento:</label>
                             <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
-                                 <option value="DNI">DNI</option>
-                                 <option value="RUC">RUC</option>
-                                 <option value="CEDULA">CEDULA</option>
+                              <option value="DNI">DNI</option>
+                              <option value="RUC">RUC</option>
+                              <option value="CEDULA">CEDULA</option>
                             </select>
                           </div>
-                         
-                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Numero de documento:</label>
-                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento" >
-                          </div>
-
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Direccion:</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Direccion" >
+                            <label>Número Documento:</label>
+                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento">
                           </div>
-
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Telefono:</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Telefono" >
+                            <label>Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Dirección">
                           </div>
-
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono">
+                          </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Email:</label>
-                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email" >
+                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email">
                           </div>
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -95,7 +88,6 @@ if ($_SESSION['ventas']==1)
 
                             <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
-
                         </form>
                     </div>
                     <!--Fin centro -->
@@ -115,7 +107,7 @@ else
 require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/cliente.js"></script>
-<?php
+<?php 
 }
 ob_end_flush();
 ?>
