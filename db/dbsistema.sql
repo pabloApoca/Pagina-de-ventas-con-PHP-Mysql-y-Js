@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2020 a las 20:36:22
+-- Tiempo de generación: 04-04-2020 a las 00:56:54
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.10
 
@@ -39,17 +39,6 @@ CREATE TABLE `articulo` (
   `condicion` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `articulo`
---
-
-INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `condicion`) VALUES
-(1, 6, '9696555', 'Nikon DSLR D6', 6, 'La D6 tiene nuevas mejoras del flujo de trabajo que ahorran tiempo y opciones avanzadas de personalización. Los momentos que nos definen, que muestran lo que podemos hacer, los que perduran, esperan ser capturados con una DSLR D6 de Nikon.', '1584459992.png', 1),
-(3, 1, '878787', 'Impresora a color multifunción HP', 4, 'DeskJet Ink Advantage 2135 110V/220V blanca', '1584459823.jfif', 1),
-(4, 7, '5694168', 'Monitor samsung b2030n', 3, 'Dispositivo (Instalación) ver 1.0 (Multi-idiomas) : Win 98/ME/2K/XP/X64/Vista/Vista 64/Win7/Win7 64 2010-01-29', '1584459641.jfif', 1),
-(10, 2, '884456', 'Parlante Portátil Karaoke MOW Carry', 2, 'MW-Carry Music es perfecto para llevarlo vayas donde vayas. De dimensiones adecuadas para un sonido potente sin ocupar gran espacio. Compacto, con manija incorporada para transportarlo fácilmente. Con su sistema de Karaoke, la diversion está asegurada.', '1584459424.jpg', 1),
-(11, 2, '2525555', 'Parlante Bluetooth Sony Mhc-v42', 3, 'Equipo De Musica Torre De Sonido Dvd Hdmi', '1584459247.jpg', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -62,17 +51,6 @@ CREATE TABLE `categoria` (
   `descripcion` varchar(256) DEFAULT NULL,
   `condicion` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `categoria`
---
-
-INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `condicion`) VALUES
-(1, 'Impresoras', 'Multinacionales, Láser y chorro de tinta', 1),
-(2, 'Sonidos', 'Parlantes grandes y chicos, con bluetooth e infrarojo.', 1),
-(5, 'Perifericos', 'Para computador, televisor y cualquier tipo de hardware', 1),
-(6, 'Fotografia', 'Camaras con zoom óptico', 1),
-(7, 'Monitoreo', 'Monitores de baja, media y alta gama.', 1);
 
 -- --------------------------------------------------------
 
@@ -89,6 +67,17 @@ CREATE TABLE `detalle_ingreso` (
   `precio_venta` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Disparadores `detalle_ingreso`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_ingreso` FOR EACH ROW BEGIN
+ UPDATE articulo SET stock = stock + NEW.cantidad 
+ WHERE articulo.idarticulo = NEW.idarticulo;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +92,17 @@ CREATE TABLE `detalle_venta` (
   `precio_venta` decimal(11,2) NOT NULL,
   `descuento` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Disparadores `detalle_venta`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+ UPDATE articulo SET stock = stock - NEW.cantidad 
+ WHERE articulo.idarticulo = NEW.idarticulo;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -164,15 +164,6 @@ CREATE TABLE `persona` (
   `email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `persona`
---
-
-INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`) VALUES
-(1, 'Proveedor', 'Inversiones', 'CEDULA', '20554594', 'Calle nalgotas', '48559883', 'inversatan@gmail.com'),
-(2, 'Proveedor', 'Inversiones San Solanio', 'RUC', '2041885697401', 'Jose Pasco 841 - Solano', '41558967', 'leonsknnedy@hotmail.com'),
-(5, 'Proveedor', 'El Ferratazo', 'DNI', '18456988', '844 -San Francisco Solano', '42855631', 'elferratazoper@gmail.com');
-
 -- --------------------------------------------------------
 
 --
@@ -199,12 +190,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`) VALUES
-(1, 'Pablo Lopez', 'DNI', '382544745', 'Pasaje 3', '42881263', 'pablomartim@hotmail.com', '', 'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637434.png', 1),
-(2, 'Juan garai chu', 'RUC', '18456988', '844 -San Francisco Solano', '41558967', 'gararaiopaa@gmail.com', 'Vendedor', 'vendedor', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637391.png', 1),
-(3, 'Marianos wes', 'DNI', '31586699', 'Jose Pasco 841 - Solano', '48559883', 'marisnoasd@yahoo.com.ar', 'Cliente', 'cli', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637682.png', 1),
-(4, 'Luis Perez', 'DNI', '28544777', 'Calle falsa 123', '42887411', 'falsedasd@gmail.com', 'Escritos', 'Escr', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584817701.jpg', 1),
-(5, 'Maria Argentina', 'DNI', '22558741', 'Gorriti 123', '42551123', 'mariaohohoargen@gmail.com', 'Emple', 'Emple', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584818051.jpg', 1),
-(6, 'Sergio Daniel Lopez', 'DNI', '38244563', 'Pasaje 4 5699', '42886510', 'Sergiorepiolaxd@gmail.com', 'Compras', 'ser', '1be00341082e25c4e251ca6713e767f7131a2823b0052caf9c9b006ec512f6cb', '1584991869.jpg', 1);
+(1, 'Pablo Lopez', 'DNI', '382544745', 'Pasaje 3', '42881263', 'pablomartim@hotmail.com', '', 'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1584637434.png', 1);
 
 -- --------------------------------------------------------
 
@@ -223,26 +209,13 @@ CREATE TABLE `usuario_permiso` (
 --
 
 INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VALUES
-(44, 4, 1),
 (60, 1, 1),
 (61, 1, 2),
 (62, 1, 3),
 (63, 1, 4),
 (64, 1, 5),
 (65, 1, 6),
-(66, 1, 7),
-(71, 2, 4),
-(77, 3, 3),
-(78, 3, 4),
-(79, 3, 6),
-(80, 3, 7),
-(81, 5, 1),
-(82, 5, 2),
-(83, 5, 3),
-(84, 5, 4),
-(85, 6, 2),
-(86, 6, 3),
-(87, 6, 6);
+(66, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -360,19 +333,19 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalle_ingreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `iddetalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idingreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -384,7 +357,7 @@ ALTER TABLE `permiso`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -402,7 +375,7 @@ ALTER TABLE `usuario_permiso`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
